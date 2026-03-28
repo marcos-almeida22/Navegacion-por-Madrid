@@ -1,0 +1,17 @@
+# IDE IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Carpeta de compilación
+out/
+target/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
