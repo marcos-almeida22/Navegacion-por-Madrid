@@ -18,4 +18,47 @@ public class Arista {
         this.maxVelocidad = maxVelocidad;
         this.tiempoViaje = distancia / (maxVelocidad / 3.6); // Tiempo calculado mediante con la distancia y la velocidad en metros/segundo
     }
+
+    // Getters y setters
+    public long getOrigen() {
+        return origen;
+    }
+    public void setOrigen(long origen) {
+        this.origen = origen;
+    }
+
+    public long getDestino() {
+        return destino;
+    }
+    public void setDestino(long destino) {
+        this.destino = destino;
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
+    }
+
+    public double getTiempoViaje() {
+        return tiempoViaje;
+    }
+    public void setTiempoViaje(double tiempoViaje) {
+        this.tiempoViaje = tiempoViaje;
+    }
+
+    public String getNombreVia() {
+        return nombreVia;
+    }
+    public void setNombreVia(String nombreVia) {
+        this.nombreVia = nombreVia;
+    }
+
+    public double getMaxVelocidad() {
+        return maxVelocidad;
+    }
+    public void setMaxVelocidad(double maxVelocidad) {
+        this.maxVelocidad = maxVelocidad;
+    }
 }

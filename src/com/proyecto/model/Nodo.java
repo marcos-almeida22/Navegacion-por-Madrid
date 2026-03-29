@@ -17,4 +17,26 @@ public class Nodo {
         this.lat = lat;
         this.aristasAdyacentes = new ArrayList<Arista>();
     }
+
+    // Getters y setters
+    public long getNodoId() {
+        return nodoId;
+    }
+    public void setNodoId(long nodoId) {
+        this.nodoId = nodoId;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
 }
