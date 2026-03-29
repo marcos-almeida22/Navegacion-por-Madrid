@@ -10,8 +10,7 @@ public class Arista {
     protected double maxVelocidad;
 
     // Constructor
-
-    public Arista(long origen, long destino, double distancia, double tiempoViaje, String nombreVia, double maxVelocidad) {
+    public Arista(long origen, long destino, double distancia, String nombreVia, double maxVelocidad) {
         this.origen = origen;
         this.destino = destino;
         this.distancia = distancia;

@@ -1,6 +1,6 @@
-package com.proyecto.test;
+package com.proyecto.ui;
 
-public class Test{
+public class Main {
     public static void main(String[] args) {
         System.out.println("Hola Mundo");
     }
