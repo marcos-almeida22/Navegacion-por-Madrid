@@ -17,7 +17,12 @@ public class Grafo {
 
     // Métodos
     public void anadirNodo(Nodo nodo) {
-        nodos.put(nodo.nodoId, nodo);
+        nodos.put(nodo.getNodoId(), nodo);
+    }
+
+    // Metodo getter para obtener todos los nodos del grafo
+    public Map<Long, Nodo> getNodos() {
+        return nodos;
     }
 
     public void anadirArista(long idOrigen, long idDestino, double distancia, String maxVelocidad, String nombre) {
@@ -34,7 +39,7 @@ public class Grafo {
         double tiempoViaje = distancia / velocidadMs;
 
         Arista arista = new Arista(idOrigen, idDestino, distancia, nombre, velocidadKmh);
-        arista.tiempoViaje = tiempoViaje; // Asignamos el coste calculado
+        arista.setTiempoViaje(tiempoViaje); // Asignamos el coste calculado
 
         origen.aristasAdyacentes.add(arista);
     }
@@ -70,10 +75,13 @@ public class Grafo {
     // Metodo para la heurística de A* (Distancia en línea recta en metros)
     public double calcularAproxHeuristica(Nodo a, Nodo b) {
 
-        double distLat = (a.lat - b.lat) * METROS_LAT;
-        double distLon = (a.lon - b.lon) * METROS_LON;
+        double distLat = (a.getLat() - b.getLat()) * METROS_LAT;
+        double distLon = (a.getLon() - b.getLon()) * METROS_LON;
         double distanciaMetros = Math.sqrt((distLat * distLat) + (distLon * distLon));
 
         return distanciaMetros / (120.0 / 3.6);
     }
+
+    // Metodo para obtener los datos de los nodos
+
 }

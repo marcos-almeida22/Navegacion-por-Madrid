@@ -8,7 +8,7 @@ public class Nodo {
     protected long nodoId;
     protected double lon; // longitud
     protected double lat; // latitud
-    protected List<Arista> aristasAdyacentes;
+    public List<Arista> aristasAdyacentes;
 
     // Constructor
     public Nodo(long nodoId, double lon, double lat) {
