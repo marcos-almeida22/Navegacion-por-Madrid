@@ -16,7 +16,7 @@ public class BuscadorRutas {
         this.grafo = grafo;
     }
 
-    private List<Long> buscarRuta(long idOrigen, long idDestino, boolean usarAEstrella) {
+    public List<Long> buscarRuta(long idOrigen, long idDestino, boolean usarAEstrella) {
         this.nodosExplorados = 0;
 
         // Estructuras necesarias para desarrollar el algoritmo

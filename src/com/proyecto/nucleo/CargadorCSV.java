@@ -51,7 +51,7 @@ public class CargadorCSV {
                 }
 
                 // 3. Indexar nombre para la Fase 4
-                grafo.indexStreetName(name, idOrigen, idDestino);
+                grafo.indexarNombreCalle(nombre, idOrigen, idDestino);
             }
         }
 

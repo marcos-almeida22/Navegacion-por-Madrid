@@ -3,6 +3,7 @@ package com.proyecto.nucleo;
 import com.proyecto.model.Arista;
 import com.proyecto.model.Nodo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class Grafo {
     // Atributos
     protected Map<Long, Nodo> nodos = new HashMap<>();
-    protected Map<Long, List<Long>> indiceCalle = new HashMap<>(); // Índice para poder buscar nombres de calles y obtener sus nodos asociados
+    protected Map<String, List<Long>> indiceCalle = new HashMap<>(); // Índice para poder buscar nombres de calles y obtener sus nodos asociados
 
     private static final double METROS_LAT = 111000.0;
     private static final double METROS_LON = 85000.0;
@@ -82,6 +83,23 @@ public class Grafo {
         return distanciaMetros / (120.0 / 3.6);
     }
 
-    // Metodo para obtener los datos de los nodos
+    // Metodo para indexar los nombres de las calles y sus nodos asociados
+    public void indexarNombreCalle(String nombre, long idOrigen, long idDestino) {
+        if (nombre == null || nombre.isEmpty() || nombre.equals("None")) { // Si no existe nombre, no lo indexamos
+            return;
+        }
 
+        // Lo guardamos en minúsculas para que la búsqueda no falle por mayúsculas/minúsculas
+        String nombreLimpio = nombre.replace("\"", "").toLowerCase().trim();
+
+        // Si la calle no existe en el mapa, creamos una lista nueva. Luego añadimos los IDs.
+        indiceCalle.computeIfAbsent(nombreLimpio, k -> new ArrayList<>()).add(idOrigen);
+        indiceCalle.computeIfAbsent(nombreLimpio, k -> new ArrayList<>()).add(idDestino);
+    }
+
+    // Este metodo lo usa el Main para obtener los nodos cuando el usuario escribe el nombre
+    public List<Long> obtenerNodosPorCalle(String nombre) {
+        if (nombre == null) return null;
+        return indiceCalle.get(nombre.replace("\"", "").toLowerCase().trim());
+    }
 }
