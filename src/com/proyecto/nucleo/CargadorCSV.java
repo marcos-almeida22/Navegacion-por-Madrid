@@ -13,9 +13,10 @@ public class CargadorCSV {
     public void cargarNodos(String camino, Grafo grafo) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(camino))) {
             String linea = br.readLine(); // Saltar cabecera con la información inicial
-            while ((linea = br.readLine()) != null) {
+            while ((linea = br.readLine()) != null) { // Bucle para recorrer todos los nodos
                 String[] datos = linea.split(",");
-                // Estructura: node_id, lon, lat [cite: 191, 192, 193]
+
+                // Estructura de los datos: node_id, lon, lat [ejemplo: 171946, -3.6844432, 40.4212466]
                 long id = Long.parseLong(datos[0]);
                 double lon = Double.parseDouble(datos[1]);
                 double lat = Double.parseDouble(datos[2]);
@@ -38,9 +39,29 @@ public class CargadorCSV {
                 double distancia = Double.parseDouble(datos[2]); // length [cite: 198, 201]
 
                 // Atributos opcionales [cite: 73, 81]
-                String nombre = datos.length > 3 ? datos[3] : "Calle desconocida";
-                boolean unidireccional = datos.length > 4 && Boolean.parseBoolean(datos[4]);
-                String maxVelocidad = datos.length > 6 ? datos[6] : "40"; // Valor por defecto
+                String nombre = "";
+                if (datos.length > 3) {
+                    nombre = datos[3].trim();
+                    nombre = nombre.replace("\"", "").replaceAll("[\\[\\]]", "");
+                }
+
+                if (nombre.isEmpty()) {
+                    nombre = "Calle desconocida";
+                }
+
+                boolean unidireccional = false;
+                if (datos.length > 4) {
+                    unidireccional = Boolean.parseBoolean(datos[4].trim());
+                }
+
+                String maxVelocidad = "";
+                if (datos.length > 6) {
+                    maxVelocidad = datos[6].trim(); // Eliminará los espacios
+                }
+
+                if (maxVelocidad.isEmpty()) {
+                    maxVelocidad = "40";
+                }
 
                 // 1. Crear arista de ida
                 grafo.anadirArista(idOrigen, idDestino, distancia, maxVelocidad, nombre);

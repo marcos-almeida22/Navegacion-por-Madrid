@@ -47,12 +47,12 @@ public class Grafo {
 
     // Metodo para extraer la velocidad de cada una de las calles en un formato correcto para poder trabajar con ellas
     private double extraerVelocidad(String maxVelocidad) {
-        if (maxVelocidad == null || maxVelocidad.isEmpty() || maxVelocidad.equals("None")) {
+        if (maxVelocidad == null || maxVelocidad.trim().isEmpty() || maxVelocidad.equals("None")) {
             return 40.0; // Velocidad por defecto en Madrid si no hay dato o es inválido
         }
 
         // Limpieza: si viene como "[30, 50]", quitamos corchetes y nos quedamos con el mayor
-        String limpiar = maxVelocidad.replaceAll("[\\[\\]\"']", "");
+        String limpiar = maxVelocidad.replaceAll("[\\[\\]\"']", "").trim();
 
         if (limpiar.contains(",")) {
             String[] partes = limpiar.split(",");
@@ -61,15 +61,15 @@ public class Grafo {
                 try {
                     double val = Double.parseDouble(p.trim());
                     if (val > max) max = val;
-                } catch (NumberFormatException e) { /* ignorar */ }
+                } catch (NumberFormatException e) {}
             }
             return max > 0 ? max : 40.0;
         }
 
         try {
-            return Double.parseDouble(limpiar.trim());
+            return Double.parseDouble(limpiar); // Se intenta parsear como un número simple
         } catch (NumberFormatException e) {
-            return 40.0;
+            return 40.0; // Se usará el de por defecto
         }
     }
 
@@ -90,9 +90,9 @@ public class Grafo {
         }
 
         // Lo guardamos en minúsculas para que la búsqueda no falle por mayúsculas/minúsculas
-        String nombreLimpio = nombre.replace("\"", "").toLowerCase().trim();
+        String nombreLimpio = nombre.replaceAll("[\"\\[\\]']", "").replaceAll("\\s+", " ").toLowerCase().trim();
 
-        // Si la calle no existe en el mapa, creamos una lista nueva. Luego añadimos los IDs.
+        // Si la calle no existe en el mapa, creamos una lista nueva. Luego añadimos los IDs
         indiceCalle.computeIfAbsent(nombreLimpio, k -> new ArrayList<>()).add(idOrigen);
         indiceCalle.computeIfAbsent(nombreLimpio, k -> new ArrayList<>()).add(idDestino);
     }
