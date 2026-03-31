@@ -54,13 +54,16 @@ public class CargadorCSV {
                     unidireccional = Boolean.parseBoolean(datos[4].trim());
                 }
 
-                String maxVelocidad = ""; // Dato de velocidad máxima
-                if (datos.length > 6) {
-                    maxVelocidad = datos[6].trim(); // Eliminará los espacios
-                }
-
-                if (maxVelocidad.isEmpty()) {
-                    maxVelocidad = "40"; // Velocidad máxima por defecto si no hay dato
+                double maxVelocidad = 40.0; // Valor por defecto
+                if (datos.length > 6 && !datos[6].trim().isEmpty()) {
+                    try {
+                        maxVelocidad = Double.parseDouble(datos[6].trim());
+                        if (maxVelocidad <= 0 || maxVelocidad > 200) {
+                            maxVelocidad = 40.0;
+                        }
+                    } catch (NumberFormatException e) {
+                        maxVelocidad = 40.0;
+                    }
                 }
 
                 // Se creará una arista de ida con sus correspondientes atributos

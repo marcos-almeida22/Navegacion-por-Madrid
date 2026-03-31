@@ -27,55 +27,27 @@ public class Grafo {
     }
 
     // Metodo para añadir una arista al grafo
-    public void anadirArista(long idOrigen, long idDestino, double distancia, String maxVelocidad, String nombre) {
+    public void anadirArista(long idOrigen, long idDestino, double distancia, double maxVelocidad, String nombre) {
         Nodo origen = nodos.get(idOrigen);
         Nodo destino = nodos.get(idDestino);
 
         // Comprobar que existen ambos nodos
         if (origen == null || destino == null) return;
 
-        double velocidadKmh = extraerVelocidad(maxVelocidad);
-        double velocidadMs = velocidadKmh / 3.6; // Convertir a metros/segundo
+        if (maxVelocidad <= 0) {
+            maxVelocidad = 40.0; // Valor por defecto
+        }
+        double velocidadMs = maxVelocidad / 3.6; // Convertir a metros/segundo
 
         // El peso de la arista será el tiempo en segundos, calculado con esta división
         double tiempoViaje = distancia / velocidadMs;
 
-        Arista arista = new Arista(idOrigen, idDestino, distancia, nombre, velocidadKmh);
+        Arista arista = new Arista(idOrigen, idDestino, distancia, nombre, maxVelocidad);
         arista.setTiempoViaje(tiempoViaje); // Asignamos el coste calculado
 
         origen.getAristasAdyacentes().add(arista); // Se añadirá a la lista de aristas adyacentes del nodo de origen
     }
 
-    // Metodo para extraer la velocidad de cada una de las calles en un formato correcto para poder trabajar con ellas
-    private double extraerVelocidad(String maxVelocidad) {
-        if (maxVelocidad == null || maxVelocidad.trim().isEmpty() || maxVelocidad.equals("None")) {
-            return 40.0; // Velocidad por defecto en Madrid si no hay dato o es inválido
-        }
-
-        // Limpieza: si viene como "[30, 50]", quitamos corchetes y nos quedamos con el mayor
-        String limpiar = maxVelocidad.replaceAll("[\\[\\]\"']", "").trim();
-
-        // Se limpiarán los datos de velocidades que contengan un intervalo de estas, obteniendo únicamente el valor máximo
-        if (limpiar.contains(",")) {
-            String[] partes = limpiar.split(",");
-            double max = 0;
-            for (String p : partes) {
-                try {
-                    double val = Double.parseDouble(p.trim());
-                    if (val > max) {
-                        max = val;
-                    }
-                } catch (NumberFormatException e) {}
-            }
-            return max > 0 ? max : 40.0;
-        }
-
-        try {
-            return Double.parseDouble(limpiar); // Se intenta parsear como un número simple
-        } catch (NumberFormatException e) {
-            return 40.0; // Se usará la velocidad por defecto
-        }
-    }
 
     // Metodo para la heurística de A*, calculando la distancia en línea recta en metros entre dos nodos y dividiéndola por la velocidad máxima (120 km/h) para obtener un tiempo aproximado para recorrer esa vía
     public double calcularAproxHeuristica(Nodo a, Nodo b) {
