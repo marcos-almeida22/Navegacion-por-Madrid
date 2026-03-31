@@ -6,9 +6,9 @@ import java.util.List;
 public class Nodo {
     // Atributos
     protected long nodoId;
-    protected double lon; // longitud
-    protected double lat; // latitud
-    public List<Arista> aristasAdyacentes;
+    protected double lon; // Longitud
+    protected double lat; // Latitud
+    protected List<Arista> aristasAdyacentes; // Lista de aristas que saldrán de este nodo
 
     // Constructor
     public Nodo(long nodoId, double lon, double lat) {
@@ -18,7 +18,7 @@ public class Nodo {
         this.aristasAdyacentes = new ArrayList<Arista>();
     }
 
-    // Getters y setters
+    // Getters y setters, creamos todos por si es necesario usarlos más tarde
     public long getNodoId() {
         return nodoId;
     }
@@ -38,5 +38,12 @@ public class Nodo {
     }
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    public List<Arista> getAristasAdyacentes() {
+        return aristasAdyacentes;
+    }
+    public void setAristasAdyacentes(List<Arista> aristasAdyacentes) {
+        this.aristasAdyacentes = aristasAdyacentes;
     }
 }

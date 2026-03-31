@@ -5,7 +5,7 @@ public class Arista {
     protected long origen;
     protected long destino;
     protected double distancia;
-    protected double tiempoViaje; // coste "real" (distancia / velocidad)
+    protected double tiempoViaje; // coste real (distancia / velocidad)
     protected String nombreVia;
     protected double maxVelocidad;
 
@@ -16,10 +16,10 @@ public class Arista {
         this.distancia = distancia;
         this.nombreVia = nombreVia;
         this.maxVelocidad = maxVelocidad;
-        this.tiempoViaje = distancia / (maxVelocidad / 3.6); // Tiempo calculado mediante con la distancia y la velocidad en metros/segundo
+        this.tiempoViaje = 0; // Tiempo calculado mediante con la distancia y la velocidad en metros/segundo
     }
 
-    // Getters y setters
+    // Getters y setters, crearemos todos por si es necesario usarlos más tarde
     public long getOrigen() {
         return origen;
     }

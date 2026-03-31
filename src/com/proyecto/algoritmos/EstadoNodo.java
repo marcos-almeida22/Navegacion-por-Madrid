@@ -13,6 +13,7 @@ public class EstadoNodo implements Comparable<EstadoNodo>{
         this.prioridad = prioridad;
     }
 
+    // Metodo para comparar la prioridad de un nodo próximo con otro
     @Override
     public int compareTo(EstadoNodo otro) {
         return Double.compare(this.prioridad, otro.prioridad);
